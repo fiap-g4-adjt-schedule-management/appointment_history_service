@@ -1,0 +1,60 @@
+type Address {
+    zipCode: String,
+    street: String,
+    number: String,
+    complement: String,
+    neighborhood: String,
+    city: String,
+    state: String
+}
+
+type Speciality {
+    id: Int,
+    name: String
+}
+type Doctor {
+    id: Int,
+    name: String,
+    cpf: String,
+    email: String,
+    phone: String,
+    crm: String,
+    speciality: Speciality,
+    address: Address
+}
+
+type Patient {
+    id: Int, name: String, cpf: String, email: String, phone: String, address: Address
+}
+
+type Nurse {
+    id: Int,
+    name: String,
+    cpf: String,
+    email: String,
+    phone: String,
+    coren: String,
+    address: Address
+}
+
+type AppointmentHistory {
+    appointmentId: ID
+    status: String
+    createdAt: String
+    scheduledAt: String
+    ingestedAt: String
+    doctor: Doctor
+    patient: Patient
+    nurse: Nurse
+    observation: String
+}
+
+extend type Query {
+    appointmentHistoryById(appointmentId: ID!): AppointmentHistory
+    appointmentsByDoctorAndDate(doctorId: Int!, startDate: String!, endDate: String!): [AppointmentHistory!]!
+    appointmentsByPatientAndDate(patientId: Int!, startDate: String!, endDate: String!): [AppointmentHistory!]!
+}
+
+extend type Mutation {
+    updateObservationHistoryById(appointmentId: ID!, observation: String!): AppointmentHistory
+}

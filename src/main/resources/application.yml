@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: appointment-history-service
+  service:
+    port: 8080
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hospital
+  rabbitmq:
+    host: localhost
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: AUTO
+        default-requeue-rejected: false
+      retry:
+        enabled: true
+        max-attempts: 2
+        initial-interval: 500ms
+        multiplier: 2.0
+        max-interval: 5s
+  jackson:
+    time-zone: UTC
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+  graphql:
+    graphiql:
+      enabled: true
+    schema:
+      introspection:
+        enabled: true
+      printer:
+        enabled: true
+---
+spring:
+  config.activate.on-profile: docker
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI}
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST}

@@ -1,0 +1,32 @@
+services:
+  mongo:
+    image: mongo:8
+    ports: ["27017:27017"]
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:4.1.4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks: [tech-net]
+
+  history-service:
+    build: .
+    depends_on: [mongo, rabbitmq]
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/hospital
+      SPRING_RABBITMQ_HOST: rabbitmq
+    ports: ["8080:8080"]
+    networks: [tech-net]
+
+volumes:
+  mongo_data:
+
+networks:
+  tech-net:
+    external: true
+    name: tech-net
