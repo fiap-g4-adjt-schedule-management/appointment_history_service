@@ -43,7 +43,7 @@ public class ControllerExceptionHandler {
     public GraphQLError handleAuthBadResponse(AuthBadResponseException ex, DataFetchingEnvironment env) {
         return GraphqlErrorBuilder.newError(env)
                 .errorType(ErrorType.BAD_REQUEST)
-                .message("BAD_RESPONSE_FROM_AUTH_SERVER")
+                .message("BAD_REQUEST")
                 .build();
     }
 
