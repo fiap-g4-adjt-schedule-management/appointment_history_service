@@ -1,13 +1,17 @@
 services:
   mongo:
     image: mongo:8
-    ports: ["27017:27017"]
+    ports: ["${MONGO_PORT}:${MONGO_PORT}"]
     volumes:
       - mongo_data:/data/db
+    networks: [tech-net]
 
   rabbitmq:
     image: rabbitmq:4.1.4-management
-    container_name: rabbitmq
+    container_name: tech-challenge-rabbit
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBIT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBIT_PASSWORD}
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -18,10 +22,13 @@ services:
     depends_on: [mongo, rabbitmq]
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/hospital
-      SPRING_RABBITMQ_HOST: rabbitmq
-    ports: ["8080:8080"]
-    networks: [tech-net]
+      SPRING_DATA_MONGODB_URI: ${MONGO_URI}
+      SPRING_RABBITMQ_HOST: tech-challenge-rabbit
+      SPRING_RABBITMQ_USERNAME: ${RABBIT_USER}
+      SPRING_RABBITMQ_PASSWORD: ${RABBIT_PASSWORD}
+    ports:
+      - "8085:8085"
+    networks: [ tech-net ]
 
 volumes:
   mongo_data:

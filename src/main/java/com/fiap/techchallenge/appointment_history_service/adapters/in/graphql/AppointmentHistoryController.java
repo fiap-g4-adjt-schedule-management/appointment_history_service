@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.appointment_history_service.adapters.in.graphql;
 
 import com.fiap.techchallenge.appointment_history_service.adapters.in.graphql.dto.AppointmentHistoryResponse;
-import com.fiap.techchallenge.appointment_history_service.application.usecase.ReadAppointmentHistoryCase;
+import com.fiap.techchallenge.appointment_history_service.application.usecase.ReadAppointmentByIdCase;
 import com.fiap.techchallenge.appointment_history_service.application.usecase.ReadAppointmentsByDoctorAndDateCase;
 import com.fiap.techchallenge.appointment_history_service.application.usecase.ReadAppointmentsByPatientAndDateCase;
 import com.fiap.techchallenge.appointment_history_service.application.usecase.UpdateAppointmentHistoryCase;
@@ -16,9 +16,9 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class HistoryController {
+public class AppointmentHistoryController {
 
-    private final ReadAppointmentHistoryCase readAppointmentHistoryCase;
+    private final ReadAppointmentByIdCase readAppointmentHistoryCase;
     private final UpdateAppointmentHistoryCase updateAppointmentHistoryCase;
     private final ReadAppointmentsByDoctorAndDateCase readAppointmentsByDoctorAndDateCase;
     private final ReadAppointmentsByPatientAndDateCase readAppointmentsByPatientAndDateCase;

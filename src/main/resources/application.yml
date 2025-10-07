@@ -1,14 +1,12 @@
 spring:
   application:
     name: appointment-history-service
-  service:
-    port: 8080
   data:
     mongodb:
-      uri: mongodb://localhost:27017/hospital
+      uri: ${MONGO_URI}
   rabbitmq:
-    host: localhost
-    port: 5672
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
     listener:
       simple:
         acknowledge-mode: AUTO
@@ -31,6 +29,15 @@ spring:
         enabled: true
       printer:
         enabled: true
+server:
+  port: 8085
+
+auth:
+  client:
+    base-url: ${AUTH_CLIENT_BASE_URL}
+    path: ${AUTH_CLIENT_PATH}
+    timeout-millis: ${AUTH_CLIENT_TIMEOUT}
+
 ---
 spring:
   config.activate.on-profile: docker

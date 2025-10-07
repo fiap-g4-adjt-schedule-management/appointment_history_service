@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.appointment_history_service.application.exception;
+package com.fiap.techchallenge.appointment_history_service.exception;
 
 public class NotFoundException extends RuntimeException {
 

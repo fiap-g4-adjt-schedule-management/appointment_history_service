@@ -3,7 +3,7 @@ package com.fiap.techchallenge.appointment_history_service.adapters.out.mongo;
 import com.fiap.techchallenge.appointment_history_service.adapters.out.mongo.mapper.DocumentMapper;
 import com.fiap.techchallenge.appointment_history_service.adapters.out.mongo.repository.AppointmentHistoryRepository;
 import com.fiap.techchallenge.appointment_history_service.domain.model.AppointmentHistoryDomain;
-import com.fiap.techchallenge.appointment_history_service.domain.out.HistoryGateway;
+import com.fiap.techchallenge.appointment_history_service.domain.out.AppointmentHistoryGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class HistoryGatewayImpl implements HistoryGateway {
+public class AppointmentHistoryGatewayImpl implements AppointmentHistoryGateway {
 
     private final AppointmentHistoryRepository repository;
     private final DocumentMapper mapper;
@@ -59,7 +59,7 @@ public class HistoryGatewayImpl implements HistoryGateway {
     public List<AppointmentHistoryDomain> findByPatientAndDate(Long patientId, LocalDate startDate, LocalDate endDate) {
         LocalDateTime start = startDate.atStartOfDay();
         LocalDateTime end = endDate.plusDays(1).atStartOfDay();
-        return repository.findByDoctor_IdAndScheduledAtBetween(patientId, start, end)
+        return repository.findByPatient_IdAndScheduledAtBetween(patientId, start, end)
                 .stream()
                 .map(mapper::toAppointmentHistoryDomain)
                 .toList();

@@ -29,5 +29,5 @@ public interface DocumentMapper {
 
     AddressDomain toAddressDomain(AddressDocument address);
 
-    SpecialityDomain toSpecialityDomain(SpecialityDomain speciality);
+    SpecialityDomain toSpecialityDomain(SpecialityDocument speciality);
 }

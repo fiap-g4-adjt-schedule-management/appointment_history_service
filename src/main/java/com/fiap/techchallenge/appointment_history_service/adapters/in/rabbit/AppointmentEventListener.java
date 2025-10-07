@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.appointment_history_service.adapters.in.rabbit;
 
-import com.fiap.techchallenge.appointment_history_service.application.usecase.SaveHistoryFromEventCase;
-import com.fiap.techchallenge.appointment_history_service.application.exception.InvalidEventPayloadException;
+import com.fiap.techchallenge.appointment_history_service.application.usecase.SaveAppointmentHistoryFromEventCase;
+import com.fiap.techchallenge.appointment_history_service.exception.InvalidEventPayloadException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
@@ -19,7 +19,7 @@ import static com.fiap.techchallenge.appointment_history_service.config.RabbitCo
 @RequiredArgsConstructor
 public class AppointmentEventListener {
 
-    private final SaveHistoryFromEventCase saveHistory;
+    private final SaveAppointmentHistoryFromEventCase saveHistory;
 
     @RabbitListener(queues = QUEUE)
     public void onMessage(Message msg) {

@@ -3,12 +3,12 @@ package com.fiap.techchallenge.appointment_history_service.application.usecase.i
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.techchallenge.appointment_history_service.application.dto.AppointmentEventDto;
-import com.fiap.techchallenge.appointment_history_service.application.exception.InvalidEventPayloadException;
-import com.fiap.techchallenge.appointment_history_service.application.exception.PersistenceException;
+import com.fiap.techchallenge.appointment_history_service.exception.InvalidEventPayloadException;
+import com.fiap.techchallenge.appointment_history_service.exception.PersistenceException;
 import com.fiap.techchallenge.appointment_history_service.application.mapper.EventToDomainMapper;
-import com.fiap.techchallenge.appointment_history_service.application.usecase.SaveHistoryFromEventCase;
+import com.fiap.techchallenge.appointment_history_service.application.usecase.SaveAppointmentHistoryFromEventCase;
 import com.fiap.techchallenge.appointment_history_service.domain.model.AppointmentHistoryDomain;
-import com.fiap.techchallenge.appointment_history_service.domain.out.HistoryGateway;
+import com.fiap.techchallenge.appointment_history_service.domain.out.AppointmentHistoryGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SaveHistoryFromEventCaseImpl implements SaveHistoryFromEventCase {
+public class SaveAppointmentHistoryFromEventCaseImpl implements SaveAppointmentHistoryFromEventCase {
 
-    private final HistoryGateway repo;
+    private final AppointmentHistoryGateway repo;
     private final EventToDomainMapper mapper;
     private final ObjectMapper json;
 
