@@ -1,0 +1,1034 @@
+{
+	"info": {
+		"_postman_id": "33e0d689-22f6-44ae-988e-14430ddb722a",
+		"name": "appointment_history_service_collection",
+		"description": "Coleção de requisições GraphQL do **Appointment History Service** para consulta e manutenção do histórico de agendamentos. Inclui cenários de leitura por paciente/médico/período e atualização de observações, cobrindo autenticação, autorização por perfil (médico, enfermeiro, paciente) e casos de erro. Use variáveis de ambiente para `baseUrl -`http://localhost:8085",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43790292"
+	},
+	"item": [
+		{
+			"name": "Busca por id do agendamento",
+			"item": [
+				{
+					"name": "Paciente - Sucesso - Todos os campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4ODkwNjUsImlhdCI6MTc1OTg4NTQ2NSwidXNlcklkIjozfQ.TuUReHAFxhvh9AWTSfSNtPZA-RcpVy-ZVzZ16943fyf5epX0Q3_1z_WLrSvFzEv9ECQ8xPODrX4N9rJcJF-Vn15vKv_R2ETE_Igl3B04Epo8Ehvr9CvREcdMSjiR5u-pzC_nLueAlfChCcPLR6L-0hdrkH3ZFH3wzqxCXTpqfbuRBG8LLq6R8IxpbQn1ftTlwpBrQq2WZP__xzOaVGe8SNoLrmGuujiNuBr26sgSnuB7o3BM-BBlfVRkj8LriWfB_zH19ltuSjQu5OaO7f9qmoy-_5z6zNJIkUHKw6NDoyF8NNdgDZLI8BLk3gxASxAcMJw3fcMY-Bgvupxqm8mYEw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Sucesso - Poucos campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4ODkwNjUsImlhdCI6MTc1OTg4NTQ2NSwidXNlcklkIjozfQ.TuUReHAFxhvh9AWTSfSNtPZA-RcpVy-ZVzZ16943fyf5epX0Q3_1z_WLrSvFzEv9ECQ8xPODrX4N9rJcJF-Vn15vKv_R2ETE_Igl3B04Epo8Ehvr9CvREcdMSjiR5u-pzC_nLueAlfChCcPLR6L-0hdrkH3ZFH3wzqxCXTpqfbuRBG8LLq6R8IxpbQn1ftTlwpBrQq2WZP__xzOaVGe8SNoLrmGuujiNuBr26sgSnuB7o3BM-BBlfVRkj8LriWfB_zH19ltuSjQu5OaO7f9qmoy-_5z6zNJIkUHKw6NDoyF8NNdgDZLI8BLk3gxASxAcMJw3fcMY-Bgvupxqm8mYEw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        scheduledAt\n        observation\n        doctor {\n            id\n            name\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Erro - Id 3 Tenta acesso a info do Id 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJKb8ODwqNvIGRhIFNpbHZhIiwic2NvcGUiOiJST0xFX1BBVElFTlQiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImV4cCI6MTc1OTg4OTY1MywiaWF0IjoxNzU5ODg2MDUzLCJ1c2VySWQiOjF9.lu_qRJk31xuNflE3UD04Gsgmmb4vrkzpnUYOQBmaVjIfpl539_qsx0VuzPTpLaMrHbKo4kayoi1m4FjmOmJksOji2DY38vg5Ctwo4N8-t4uHE5IOSraChslXCLqcO8_lyKDlwGkZ6ctTjcb2wa3bQriSrdMLwYKdwje3PJdyIld2aVxmH6CQv_xSk2_0DKjRa99wjWsc7UpAQLDDX95Wy8az5aqDIheJZ6xGiXm4itZAuUwxlsd1oeEOwMZbZd77uxY4dRBiOgusnmtFeiz0yGEmuPi7PayEJnoaxhwwX0QSY1-u6DtwMXcS1xKSOA5WFxPa5dsRsEFyxrwYlEmeHg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - Sucesso - Todos os campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJOdXJzZSA5Iiwic2NvcGUiOiJST0xFX05VUlNFIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiZXhwIjoxNzU5ODkxMTI1LCJpYXQiOjE3NTk4ODc1MjUsInVzZXJJZCI6OX0.DwiOGy8aLT66fKKmTKenxCZwUcvrvf6api_sMlOAnA6u7r4CEvlhsJ7zlynwxM0G7Gl46yMAf42PjYgSWmlGi-x8gQuy7n4_A0BHqMp8fVlxnG3ZD9NsuImN1QAzgDTZPVkXJQufYy12_PMA-zmj-8-wwX7LLfjtpOB6623U_9PmCrr-CObpLbnfCzTENCt6_AXu-Oe84jxpGHXrq5ewdYZHv-aL6ayLaBImafbKZECpsMUUu6oINtL4QivGudDyHYJmiH8G1kdFCLAswrpDduCM7oRzeybo5MAJwndbb5n2cmbyZTfvH57jRWo1IeykFMeMuwcsFGpLeJ9bKyG5dw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"8\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - Sucesso - Poucos campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJOdXJzZSA5Iiwic2NvcGUiOiJST0xFX05VUlNFIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiZXhwIjoxNzU5ODkxMTI1LCJpYXQiOjE3NTk4ODc1MjUsInVzZXJJZCI6OX0.DwiOGy8aLT66fKKmTKenxCZwUcvrvf6api_sMlOAnA6u7r4CEvlhsJ7zlynwxM0G7Gl46yMAf42PjYgSWmlGi-x8gQuy7n4_A0BHqMp8fVlxnG3ZD9NsuImN1QAzgDTZPVkXJQufYy12_PMA-zmj-8-wwX7LLfjtpOB6623U_9PmCrr-CObpLbnfCzTENCt6_AXu-Oe84jxpGHXrq5ewdYZHv-aL6ayLaBImafbKZECpsMUUu6oINtL4QivGudDyHYJmiH8G1kdFCLAswrpDduCM7oRzeybo5MAJwndbb5n2cmbyZTfvH57jRWo1IeykFMeMuwcsFGpLeJ9bKyG5dw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        scheduledAt\n        observation\n        doctor {\n            id\n            name\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - Sucesso - Todos os campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkwMjk3LCJpYXQiOjE3NTk4ODY2OTcsInVzZXJJZCI6Nn0.d8fgGROc-eBGLFoBox8KV9SesnCVjX_jsFb5S8fWPJOsT-XvfHbmqq9kas5fe41xWNHzoPlP3DuzG3fwWr28C1ysMKw0MGcViSvFddDO9qSV4h-BSLcEt07rRj9kt09GWwwc-SesYELYpV01NIWv3JPAjlh2KbS7S9VFeYnRep54fAHf6k2IvSlN6kdafQN6GuZSlLJG7B7DeXBlc-yfoA-E5Tje2N9atEUlIpwZ3hlCOjYPrZxNtpb9YktNwYIYHtqq8Oz6QGDZj1IF7UPOsXBux34YD60accz0lTEsNw2JDThnvHxD-XgyrfaN0k27dXf7iPod0fojB6AsP5h9qg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"4\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - Sucesso - Poucos campos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkwMjk3LCJpYXQiOjE3NTk4ODY2OTcsInVzZXJJZCI6Nn0.d8fgGROc-eBGLFoBox8KV9SesnCVjX_jsFb5S8fWPJOsT-XvfHbmqq9kas5fe41xWNHzoPlP3DuzG3fwWr28C1ysMKw0MGcViSvFddDO9qSV4h-BSLcEt07rRj9kt09GWwwc-SesYELYpV01NIWv3JPAjlh2KbS7S9VFeYnRep54fAHf6k2IvSlN6kdafQN6GuZSlLJG7B7DeXBlc-yfoA-E5Tje2N9atEUlIpwZ3hlCOjYPrZxNtpb9YktNwYIYHtqq8Oz6QGDZj1IF7UPOsXBux34YD60accz0lTEsNw2JDThnvHxD-XgyrfaN0k27dXf7iPod0fojB6AsP5h9qg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        scheduledAt\n        observation\n        doctor {\n            id\n            name\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Sem Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Token invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJKb8ODwqNvIGRhIFNpbHZhIiwic2NvcGUiOiJST0xFX1BBVElFTlQiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImV4cCI6MTc1OTg4OTY1MywiaWF0IjoxNzU5ODg2MDUzLCJ1c2VySWQiOjF9.lu_qRJk31xuNflE3UD04Gsgmmb4vrkzpnUYOQBmaVjIfpl539_qsx0VuzPTpLaMrHbKo4kayoi1m4FjmOmJksOji2DY38vg5Ctwo4N8-t4A5WFxPa5dsRsEFyxrwYlEmeHg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"3\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Id invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJKb8ODwqNvIGRhIFNpbHZhIiwic2NvcGUiOiJST0xFX1BBVElFTlQiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiUEFUSUVOVCIsImV4cCI6MTc1OTg4OTY1MywiaWF0IjoxNzU5ODg2MDUzLCJ1c2VySWQiOjF9.lu_qRJk31xuNflE3UD04Gsgmmb4vrkzpnUYOQBmaVjIfpl539_qsx0VuzPTpLaMrHbKo4kayoi1m4FjmOmJksOji2DY38vg5Ctwo4N8-t4A5WFxPa5dsRsEFyxrwYlEmeHg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentHistoryById {\n    appointmentHistoryById(appointmentId: \"32\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n            address {\n                zipCode\n                street\n                number\n                complement\n                neighborhood\n                city\n                state\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Busca por Id medico e data",
+			"item": [
+				{
+					"name": "Paciente - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4OTE3NTksImlhdCI6MTc1OTg4ODE1OSwidXNlcklkIjozfQ.ntSyFPHUxbHwZTRvRarUE0_zUgF-oMPXzrK1f2J65DJc1yOHYruK845NrW8OJ3x1-paqr3nsVIBdfVZQvsmTUeDelDNIKVbzLdbWkDcWWNwPXZPQha0jYl_C2Rr2sO1-xLrIxlC-1TZZV_uIkxu7SGUWWB_LQDr33hLMZpM2vVT_FWxhekY3wKVBmBuTb8vwglG8H8hlzl8Sjc_6wM-sxVmytvw1V7IgcIGX52QfsF5T_tjmun_tQefv0I2GclYSi1APTFps-MQE1AHjHEMjuj2P50-pmL4TgO-pXBSLNT0eXB3um_uAxdv5QSLYfehrEwZTKW8_KE0FLiKKgvGSVA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJOdXJzZSA5Iiwic2NvcGUiOiJST0xFX05VUlNFIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiZXhwIjoxNzU5ODkyMzY4LCJpYXQiOjE3NTk4ODg3NjgsInVzZXJJZCI6OX0.SlxzTRetIOaVHlccciUHxz-9vNAz7XfPGZtGsp6yA--y4NMLt8kXmcZj_HaoM-wzQ5opWPQQdLlbxWYQhpwdf8cFc4rsHfe4y51yB7fUG6xkbQLtLVWIpKGx5-fPSqDEtEVx5Cl8811eF7RAOH2HylHK8Jkd9CmEkisEHviKUhKG-PbNuiNtO0lRaqS-yQlSgA-a9HWmpQ2q_kmLdefaj5oYGT6zLH-49H68Nb40GGIVK-a-D7lDPTI0YeiMUfkVzkTFcajqnHJpHJsmz_o-5hbq2p5hksUUVYIkimF4Vw8ippdCWNdr22Go9d5F8HSGn7YdxR99Dd8zHrqToDcyiQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Data Invalida",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4OTE3NTksImlhdCI6MTc1OTg4ODE1OSwidXNlcklkIjozfQ.ntSyFPHUxbHwZTRvRarUE0_zUgF-oMPXzrK1f2J65DJc1yOHYruK845NrW8OJ3x1-paqr3nsVIBdfVZQvsmTUeDelDNIKVbzLdbWkDcWWNwPXZPQha0jYl_C2Rr2sO1-xLrIxlC-1TZZV_uIkxu7SGUWWB_LQDr33hLMZpM2vVT_FWxhekY3wKVBmBuTb8vwglG8H8hlzl8Sjc_6wM-sxVmytvw1V7IgcIGX52QfsF5T_tjmun_tQefv0I2GclYSi1APTFps-MQE1AHjHEMjuj2P50-pmL4TgO-pXBSLNT0eXB3um_uAxdv5QSLYfehrEwZTKW8_KE0FLiKKgvGSVA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"25-09-2025\", endDate: \"06-10-2025\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Id Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyMDU1LCJpYXQiOjE3NTk4ODg0NTUsInVzZXJJZCI6Nn0.M_cJBTtf83oMrdGwrt6lz-2_arWaHbvIKrX3uDXo2BQjwLpqQbRB50M8z4k3598ERhQ5DmQ06ybw1ohiiPLgDjadfxrznf-lcITmdvCxwHdonQu_5FzO96V3cf3FiOhZ51QMkkPgVzSlDmr5pmQBmrf89f4_Z6PEeW_FPDm9L_TmTLt-kLzhr-Y-0PSx3OUPYW23t1F2irp15HUWFS_M6ETvIQrSYqwgo8WfTfjdqkQPyGji5QYEcTIPt4v4PN8nmWnJCSEamYvqvlEnIbQ0Nb4zL37Nn_rlF_VCsxSe5_Kk3YCAdE_iELWOEcA3NyVv7_bQmizQdO67wk7e1P0ziQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 78, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Token Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4OTE3NTksImlhdCI6MTc1OTg4ODE1OSwidXNlcklkIjozfQ.ntSyFPHUxbHwZTRvRarUE0_zUgF-oMPXzrK1f2J65DJc1yOHYruK845NrW8OJ3x1-3um_uAxdv5QSLYfehrEwZTKW8_KE0FLiKKgvGSVA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Token Vazio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByDoctorAndDate {\n    appointmentsByDoctorAndDate(doctorId: 3, startDate: \"2025-09-25\", endDate: \"2025-10-06\") {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Buscar por id paciente e data",
+			"item": [
+				{
+					"name": "Paciente - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4OTE3NTksImlhdCI6MTc1OTg4ODE1OSwidXNlcklkIjozfQ.ntSyFPHUxbHwZTRvRarUE0_zUgF-oMPXzrK1f2J65DJc1yOHYruK845NrW8OJ3x1-paqr3nsVIBdfVZQvsmTUeDelDNIKVbzLdbWkDcWWNwPXZPQha0jYl_C2Rr2sO1-xLrIxlC-1TZZV_uIkxu7SGUWWB_LQDr33hLMZpM2vVT_FWxhekY3wKVBmBuTb8vwglG8H8hlzl8Sjc_6wM-sxVmytvw1V7IgcIGX52QfsF5T_tjmun_tQefv0I2GclYSi1APTFps-MQE1AHjHEMjuj2P50-pmL4TgO-pXBSLNT0eXB3um_uAxdv5QSLYfehrEwZTKW8_KE0FLiKKgvGSVA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 3\n        startDate: \"2025-10-01\"\n        endDate: \"2025-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJOdXJzZSA5Iiwic2NvcGUiOiJST0xFX05VUlNFIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiZXhwIjoxNzU5ODkyMzY4LCJpYXQiOjE3NTk4ODg3NjgsInVzZXJJZCI6OX0.SlxzTRetIOaVHlccciUHxz-9vNAz7XfPGZtGsp6yA--y4NMLt8kXmcZj_HaoM-wzQ5opWPQQdLlbxWYQhpwdf8cFc4rsHfe4y51yB7fUG6xkbQLtLVWIpKGx5-fPSqDEtEVx5Cl8811eF7RAOH2HylHK8Jkd9CmEkisEHviKUhKG-PbNuiNtO0lRaqS-yQlSgA-a9HWmpQ2q_kmLdefaj5oYGT6zLH-49H68Nb40GGIVK-a-D7lDPTI0YeiMUfkVzkTFcajqnHJpHJsmz_o-5hbq2p5hksUUVYIkimF4Vw8ippdCWNdr22Go9d5F8HSGn7YdxR99Dd8zHrqToDcyiQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 8\n        startDate: \"2025-10-01\"\n        endDate: \"2025-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 8\n        startDate: \"2025-10-01\"\n        endDate: \"2025-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Data Invalida",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 8\n        startDate: \"25-10-01\"\n        endDate: \"25-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Id Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 15\n        startDate: \"2025-10-01\"\n        endDate: \"2025-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro - Token Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInN9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query AppointmentsByPatientAndDate {\n    appointmentsByPatientAndDate(\n        patientId: 8\n        startDate: \"2025-10-01\"\n        endDate: \"2025-10-06\"\n    ) {\n        appointmentId\n        status\n        createdAt\n        scheduledAt\n        ingestedAt\n        observation\n        doctor {\n            id\n            name\n            cpf\n            email\n            phone\n            crm\n            speciality {\n                id\n                name\n            }\n        }\n        nurse {\n            id\n            name\n            cpf\n            email\n            phone\n            coren\n        }\n        patient {\n            id\n            name\n            cpf\n            email\n            phone\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Atualizar campo observação",
+			"item": [
+				{
+					"name": "Medico - Sucesso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"3\", observation: \"perna quebrada\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - Sucesso - Observation Vazio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"3\", observation: \"\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - Erro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJDYXJsb3MgUGVyZWlyYSIsInNjb3BlIjoiUk9MRV9QQVRJRU5UIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6IlBBVElFTlQiLCJleHAiOjE3NTk4OTE3NTksImlhdCI6MTc1OTg4ODE1OSwidXNlcklkIjozfQ.ntSyFPHUxbHwZTRvRarUE0_zUgF-oMPXzrK1f2J65DJc1yOHYruK845NrW8OJ3x1-paqr3nsVIBdfVZQvsmTUeDelDNIKVbzLdbWkDcWWNwPXZPQha0jYl_C2Rr2sO1-xLrIxlC-1TZZV_uIkxu7SGUWWB_LQDr33hLMZpM2vVT_FWxhekY3wKVBmBuTb8vwglG8H8hlzl8Sjc_6wM-sxVmytvw1V7IgcIGX52QfsF5T_tjmun_tQefv0I2GclYSi1APTFps-MQE1AHjHEMjuj2P50-pmL4TgO-pXBSLNT0eXB3um_uAxdv5QSLYfehrEwZTKW8_KE0FLiKKgvGSVA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"3\", observation: \"perna quebrada\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - Erro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJOdXJzZSA5Iiwic2NvcGUiOiJST0xFX05VUlNFIiwiaXNzIjoibXMtc2NoZWR1bGUiLCJ1c2VyVHlwZSI6Ik5VUlNFIiwiZXhwIjoxNzU5ODkyMzY4LCJpYXQiOjE3NTk4ODg3NjgsInVzZXJJZCI6OX0.SlxzTRetIOaVHlccciUHxz-9vNAz7XfPGZtGsp6yA--y4NMLt8kXmcZj_HaoM-wzQ5opWPQQdLlbxWYQhpwdf8cFc4rsHfe4y51yB7fUG6xkbQLtLVWIpKGx5-fPSqDEtEVx5Cl8811eF7RAOH2HylHK8Jkd9CmEkisEHviKUhKG-PbNuiNtO0lRaqS-yQlSgA-a9HWmpQ2q_kmLdefaj5oYGT6zLH-49H68Nb40GGIVK-a-D7lDPTI0YeiMUfkVzkTFcajqnHJpHJsmz_o-5hbq2p5hksUUVYIkimF4Vw8ippdCWNdr22Go9d5F8HSGn7YdxR99Dd8zHrqToDcyiQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"3\", observation: \"perna quebrada\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro Id Vazio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6v3LNOuK4eWOEojzy9zh9W3GK0k_0cfefLWnfqhUFwJrdO_RsbWP12vQQ_tAmK3i4rXurVpB5EV5yKmTLMrDOkOBdGiwEvV5pq1eATUSuLoHuiXy0hgFYO43yHSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"\", observation: \"perna quebrada\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Erro Token Invalido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJEb2N0b3IgNiIsInNjb3BlIjoiUk9MRV9ET0NUT1IiLCJpc3MiOiJtcy1zY2hlZHVsZSIsInVzZXJUeXBlIjoiRE9DVE9SIiwiZXhwIjoxNzU5ODkyNDM0LCJpYXQiOjE3NTk4ODg4MzQsInVzZXJJZCI6Nn0.VY3cBmpwvWSciq9Aq80c-9qTA3AxxZ1pb8aDRm9AaIPt_NOGl6h-ieCCw0kJUeP7xrjllcu5fTGstBE5pbVfu4YEb4jgXN8r6vSm83hg44bkneZwFL5ZCdJSRMOe2OB17_EQK3DEnnLraitm-90pZo2R6eU_vgwKlHZXNmAcfueBmsee71fHc1A5JSlQ4oSIa-WHzFicEjG7z9z-btCCqv_ZL3HMvA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateObservationHistoryById {\n    updateObservationHistoryById(appointmentId: \"4\", observation: \"perna quebrada\") {\n        appointmentId\n        status\n        observation\n        patient {\n            name\n            cpf\n        }\n        doctor {\n            id\n            name\n            speciality {\n                name\n            }\n        }\n    }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/graphql",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gerar Token",
+			"item": [
+				{
+					"name": "Paciente - id 3",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"paciente3@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paciente - id 1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"paciente1@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Medico - id 6",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"doctor6@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enfermeiro - id 9",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"nurse9@example.com\",\n  \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Para realizar testes com os endpoints é necessário criar um token do usuário para agregar ao header da requisição. O endpoint é o /auth do serviço ms-schedule.**"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
