@@ -40,4 +40,3 @@ volumes:
 networks:
   tech-net:
     external: true
-    name: tech-net
